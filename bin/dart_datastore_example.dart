@@ -49,6 +49,7 @@ void main(args) {
 
         client.Property property = new client.Property.fromJson({});
         property.stringValue = "Meaning of life?";
+        entity.properties = new Map<String, client.Property>();
         entity.properties['question'] = property;
 
         property = new client.Property.fromJson({});

@@ -28,7 +28,7 @@ void main(args) {
     key.path.add(path);
     lookupRequest.keys = new List<client.Key>();
     lookupRequest.keys.add(key);
-    lookupRequest.readOptions.transaction = transaction;
+    lookupRequest.readOptions =  new client.ReadOptions.fromJson({'transaction': transaction});
     datastore.datasets.lookup(lookupRequest, projectId)
         .then((client.LookupResponse lookupResponse) {
       var req = new client.CommitRequest.fromJson({});

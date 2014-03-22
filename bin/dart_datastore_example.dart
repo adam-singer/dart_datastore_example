@@ -12,6 +12,7 @@ void main(args) {
   ComputeOAuth2Console computeEngineClient = new ComputeOAuth2Console(projectNumber);
 
   console.Datastore datastore = new console.Datastore(computeEngineClient);
+  datastore.makeAuthRequests = true;
 
   var beginTransactionRequest = new client.BeginTransactionRequest.fromJson({});
 
@@ -23,6 +24,7 @@ void main(args) {
     var lookupRequest = new client.LookupRequest.fromJson({});
     var key = new client.Key.fromJson({});
     var path = new client.KeyPathElement.fromJson({'kind': 'Trivia', 'name': 'hgtg'});
+    key.path = new List<client.KeyPathElement>();
     key.path.add(path);
     lookupRequest.keys.add(key);
     lookupRequest.readOptions.transaction = transaction;

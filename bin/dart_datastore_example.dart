@@ -26,6 +26,7 @@ void main(args) {
     var path = new client.KeyPathElement.fromJson({'kind': 'Trivia', 'name': 'hgtg'});
     key.path = new List<client.KeyPathElement>();
     key.path.add(path);
+    lookupRequest.keys = new List<client.Key>();
     lookupRequest.keys.add(key);
     lookupRequest.readOptions.transaction = transaction;
     datastore.datasets.lookup(lookupRequest, projectId)

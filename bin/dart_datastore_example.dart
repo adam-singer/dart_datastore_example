@@ -42,6 +42,7 @@ void main(args) {
         // If no entity was found, insert a new one in the commit request mutation.
         entity = new client.Entity.fromJson({});
 
+        req.mutation = new client.Mutation.fromJson({});
         req.mutation.insert = new List<client.Entity>();
         req.mutation.insert.add(entity);
         entity.key = new client.Key.fromJson(key.toJson());

@@ -36,9 +36,11 @@ void main(args) {
 
       client.Entity entity;
       if (lookupResponse.found.isNotEmpty) {
-        // Get the entity from the response if foudn
+        // Get the entity from the response if found
         entity = lookupResponse.found.first.entity;
+        print("found entity = ${entity.toString()}");
       } else {
+        print("did not found entity");
         // If no entity was found, insert a new one in the commit request mutation.
         entity = new client.Entity.fromJson({});
 
@@ -60,7 +62,6 @@ void main(args) {
         .then((client.CommitResponse commitResponse) { });
 
         print("> entity = ${entity.properties}");
-
       }
     });
   });

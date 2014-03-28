@@ -3,10 +3,10 @@ Getting started with Google Cloud Datastore and Dart
 
 Before running through the steps below, make sure that:
 
-* You have enabled Google Cloud Datastore API.
-* You have your `<dataset-id>` (same identifier as your Google Cloud Project ID).
-* You are connected to a Compute Engine instance with both the `datastore` and
-`userinfo.email` scopes or have a <service-account> and the <path-to-private-key-file>.
+* You have [enabled](https://developers.google.com/datastore/docs/activate) Google Cloud Datastore API.
+* You have your `<dataset-id>` (same identifier as your Google Cloud [Project ID](https://developers.google.com/datastore/docs/activate#project_id)).
+* You are [connected](https://developers.google.com/compute/docs/instances#sshing) to a Compute Engine instance with both the `datastore` and
+`userinfo.email` [scopes](https://developers.google.com/compute/docs/authentication#using) or have a [<service-account>](https://developers.google.com/datastore/docs/activate#service_account) and the [<path-to-private-key-file>](https://developers.google.com/datastore/docs/activate#private_key).
 * You have a working dart environment # TODO(adam): write up the setup scripts inline
 
 In order to make API calls to the Datastore, pubspec.yaml file needs the following
@@ -54,6 +54,10 @@ dart dart_datastore_example.dart dartcloud 657648630269 privatekey.pem 657648630
 Example output on first run:
 
 ```
+dartcloud
+657648630269
+privatekey.pem
+657648630269-ge2he8e46y4u42bd89nmgtj52j3ilzvv@developer.gserviceaccount.com
 did not found entity
 > entity = {question: {"stringValue":"Meaning of life?"}, answer: {"integerValue":42}}
 ```
@@ -192,10 +196,10 @@ void main(List<String> args) {
 
 With this example, you learned how to use the:
 
-* googleapis package to connect to the Datastore API.
-* beginTransaction method to start a transaction.
-* lookup method to retrieve entities by key from your dataset.
-* commit method to send mutations to entities in your dataset and commit the transaction.
+* [google_datastore_v1beta1_api](http://pub.dartlang.org/packages/google_datastore_v1beta1_api) dart package to connect to the Datastore API.
+* [beginTransaction]() method to start a transaction.
+* [lookup](https://developers.google.com/datastore/docs/apis/v1beta2/datasets/lookup) method to retrieve entities by key from your dataset.
+* [commit](https://developers.google.com/datastore/docs/apis/v1beta2/datasets/commit) method to send mutations to entities in your dataset and commit the transaction.
 
-Now, you are ready to learn more about the Key Datastore Concepts and look at the JSON API reference.
+Now, you are ready to learn more about the [Key Datastore Concepts](https://developers.google.com/datastore/docs/concepts/) and look at the [JSON API reference](https://developers.google.com/datastore/docs/apis/v1beta2/).
 

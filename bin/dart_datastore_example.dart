@@ -1,8 +1,10 @@
 import "dart:io";
 
 import "package:google_oauth2_client/google_oauth2_console.dart";
-import "package:google_datastore_v1beta2_api/datastore_v1beta2_api_client.dart" as client;
-import "package:google_datastore_v1beta2_api/datastore_v1beta2_api_console.dart" as console;
+import "package:google_datastore_v1beta2_api/datastore_v1beta2_api_client.dart"
+    as client;
+import "package:google_datastore_v1beta2_api/datastore_v1beta2_api_console.dart"
+    as console;
 
 void main(List<String> args) {
   print("Hello, Dart!");
@@ -21,9 +23,8 @@ void main(List<String> args) {
       'https://www.googleapis.com/auth/datastore';
   String rsa_private_key_file = new File(pemFilename).readAsStringSync();
 
-  ComputeOAuth2Console computeEngineClient =
-      new ComputeOAuth2Console(projectNumber, privateKey: rsa_private_key_file,
-          iss: iss, scopes: scopes);
+  ComputeOAuth2Console computeEngineClient = new ComputeOAuth2Console(
+      projectNumber, privateKey: rsa_private_key_file, iss: iss, scopes: scopes);
 
   console.Datastore datastore = new console.Datastore(computeEngineClient)
   ..makeAuthRequests = true;
@@ -47,7 +48,10 @@ void main(List<String> args) {
     key = new client.Key.fromJson({});
 
     // Set the entity key with only one `path_element`: no parent.
-    var path = new client.KeyPathElement.fromJson({'kind': 'Trivia', 'name': 'hgtg'});
+    var path = new client.KeyPathElement.fromJson({
+      'kind': 'Trivia',
+      'name': 'hgtg'
+    });
     key.path = new List<client.KeyPathElement>();
     key.path.add(path);
     lookupRequest.keys = new List<client.Key>();
@@ -57,20 +61,18 @@ void main(List<String> args) {
 
     // Set the transaction, so we get a consistent snapshot of the
     // entity at the time the transaction started.
-    lookupRequest.readOptions =
-        new client.ReadOptions.fromJson({'transaction': transaction});
+    lookupRequest.readOptions = new client.ReadOptions.fromJson({
+      'transaction': transaction
+    });
 
-    // TODO: chain this future
     // Execute the RPC and get the response.
     return datastore.datasets.lookup(lookupRequest, projectId);
-
   }).then((client.LookupResponse lookupResponse) {
     // Create a RPC request to commit the transaction.
     var req = new client.CommitRequest.fromJson({});
 
     // Set the transaction to commit.
     req.transaction = transaction;
-
 
     if (lookupResponse.found.isNotEmpty) {
       // Get the entity from the response if found

@@ -7,7 +7,7 @@ Before running through the steps below, make sure that:
 * You have your `<project-id>` (same identifier as your Google Cloud [Project ID](https://developers.google.com/datastore/docs/activate#project_id)).
 * You are [connected](https://developers.google.com/compute/docs/instances#sshing) to a Compute Engine instance with both the `datastore` and
 `userinfo.email` [scopes](https://developers.google.com/compute/docs/authentication#using) or have a [<service-account>](https://developers.google.com/datastore/docs/activate#service_account) and the [<path-to-private-key-file>](https://developers.google.com/datastore/docs/activate#private_key).
-* You have a working dart environment
+* You have a working local [dart environment](https://www.dartlang.org/tools/download.html) or working [Compute Engine instance](#deploymentexample) 
 
 In order to make API calls to the Datastore, pubspec.yaml file needs the following
 
@@ -17,7 +17,7 @@ dependencies:
   google_datastore_v1beta2_api: ">=0.4.0 <0.5.0"
 ```
 
-Then, get the `dart_datastore_example` sample:
+Then, get the [`dart_datastore_example`](https://github.com/financeCoding/dart_datastore_example) sample:
 
 ```
 git clone https://github.com/financeCoding/dart_datastore_example.git
@@ -203,12 +203,11 @@ With this example, you learned how to use the:
 
 Now, you are ready to learn more about the [Key Datastore Concepts](https://developers.google.com/datastore/docs/concepts/) and look at the [JSON API reference](https://developers.google.com/datastore/docs/apis/v1beta2/).
 
-
 ----
 
-Example deployment and startup scripts for GCE with Dart
+## Example deployment and startup scripts for GCE with Dart                         {#deploymentexample}
 
-* `setup-instance.sh` script creates the node with the right correct scopes and image. 
+`setup-instance.sh` script creates the node with the right correct scopes and image. 
 
 ```
 #!/usr/bin/env bash
@@ -238,7 +237,7 @@ if [[ $rc != 0 ]] ; then
 fi
 ```
 
-* `startup-script.sh` script that provisions the node with dart. 
+`startup-script.sh` script that provisions the node with dart. 
 
 ```
 #!/usr/bin/env bash

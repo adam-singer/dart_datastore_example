@@ -7,18 +7,22 @@ import "package:google_datastore_v1beta2_api/datastore_v1beta2_api_console.dart"
     as console;
 
 void main(List<String> args) {
-  print("Hello, Dart!");
-
   Map<String, String> envVars = Platform.environment;
-  print(envVars['DATASTORE_SERVICE_ACCOUNT']); // TODO: The full email account.
-  print(envVars['DATASTORE_PRIVATE_KEY_FILE']); // TODO: The private key file.
+  String projectId = envVars['CLOUD_PROJECT_ID'] == null ?
+      args[0] : envVars['CLOUD_PROJECT_ID'];
+  String projectNumber = envVars['CLOUD_PROJECT_NUMBER'] == null ?
+      args[1] : envVars['CLOUD_PROJECT_NUMBER'];
+  String pemFilename = envVars['DATASTORE_PRIVATE_KEY_FILE'] == null ?
+      args[2] : envVars['DATASTORE_PRIVATE_KEY_FILE'];
+  String serviceAccountEmail = envVars['DATASTORE_SERVICE_ACCOUNT'] == null ?
+      args[3] : envVars['DATASTORE_SERVICE_ACCOUNT'];
 
-  var projectId = args[0];
-  var projectNumber = args[1];
-  var pemFilename = args[2];
-  var serviceAccountEmail = args[3];
+  print(projectId);
+  print(projectNumber);
+  print(pemFilename);
+  print(serviceAccountEmail);
 
-  String iss = "${serviceAccountEmail}@developer.gserviceaccount.com";
+  String iss = serviceAccountEmail;
   String scopes = 'https://www.googleapis.com/auth/userinfo.email '
       'https://www.googleapis.com/auth/datastore';
   String rsa_private_key_file = new File(pemFilename).readAsStringSync();

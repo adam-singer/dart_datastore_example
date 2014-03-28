@@ -7,7 +7,7 @@ Before running through the steps below, make sure that:
 * You have your `<project-id>` (same identifier as your Google Cloud [Project ID](https://developers.google.com/datastore/docs/activate#project_id)).
 * You are [connected](https://developers.google.com/compute/docs/instances#sshing) to a Compute Engine instance with both the `datastore` and
 `userinfo.email` [scopes](https://developers.google.com/compute/docs/authentication#using) or have a [<service-account>](https://developers.google.com/datastore/docs/activate#service_account) and the [<path-to-private-key-file>](https://developers.google.com/datastore/docs/activate#private_key).
-* You have a working local [dart environment](https://www.dartlang.org/tools/download.html) or working [Compute Engine instance](#deploymentexample) 
+* You have a working local [dart environment](https://www.dartlang.org/tools/download.html) or working [Compute Engine instance](#Example deployment and startup scripts for GCE with Dart) 
 
 In order to make API calls to the Datastore, pubspec.yaml file needs the following
 
@@ -205,7 +205,7 @@ Now, you are ready to learn more about the [Key Datastore Concepts](https://deve
 
 ----
 
-## Example deployment and startup scripts for GCE with Dart                         {#deploymentexample}
+## Example deployment and startup scripts for GCE with Dart                         
 
 `setup-instance.sh` script creates the node with the right correct scopes and image. 
 

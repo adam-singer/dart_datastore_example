@@ -4,10 +4,10 @@ Getting started with Google Cloud Datastore and Dart
 Before running through the steps below, make sure that:
 
 * You have [enabled](https://developers.google.com/datastore/docs/activate) Google Cloud Datastore API.
-* You have your `<dataset-id>` (same identifier as your Google Cloud [Project ID](https://developers.google.com/datastore/docs/activate#project_id)).
+* You have your `<project-id>` (same identifier as your Google Cloud [Project ID](https://developers.google.com/datastore/docs/activate#project_id)).
 * You are [connected](https://developers.google.com/compute/docs/instances#sshing) to a Compute Engine instance with both the `datastore` and
 `userinfo.email` [scopes](https://developers.google.com/compute/docs/authentication#using) or have a [<service-account>](https://developers.google.com/datastore/docs/activate#service_account) and the [<path-to-private-key-file>](https://developers.google.com/datastore/docs/activate#private_key).
-* You have a working dart environment # TODO(adam): write up the setup scripts inline
+* You have a working dart environment
 
 In order to make API calls to the Datastore, pubspec.yaml file needs the following
 
@@ -203,3 +203,64 @@ With this example, you learned how to use the:
 
 Now, you are ready to learn more about the [Key Datastore Concepts](https://developers.google.com/datastore/docs/concepts/) and look at the [JSON API reference](https://developers.google.com/datastore/docs/apis/v1beta2/).
 
+
+----
+
+Example deployment and startup scripts for GCE with Dart
+
+* `setup-instance.sh` script creates the node with the right correct scopes and image. 
+
+```
+#!/usr/bin/env bash
+set +o xtrace
+
+USER=$USER
+PROJECT=dart-compute-project
+INSTANCE_NAME=dart-compute
+TAGS=dart
+MACHINE_TYPE=f1-micro
+NETWORK=default
+IP=ephemeral
+IMAGE=https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/backports-debian-7-wheezy-v20140318
+SCOPES=https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.full_control,https://www.googleapis.com/auth/datastore
+PERSISTENT_BOOT_DISK=true
+AUTO_DELETE_BOOT_DISK=true
+ZONE=us-central1-b
+STARTUP_SCRIPT=startup-script.sh
+GCUTIL="gcutil --service_version=v1 --project=$PROJECT"
+
+$GCUTIL addinstance $INSTANCE_NAME --tags=$TAGS --zone=$ZONE --machine_type=$MACHINE_TYPE --network=$NETWORK --external_ip_address=$IP --service_account_scopes=$SCOPES --image=$IMAGE --persistent_boot_disk=$PERSISTENT_BOOT_DISK --auto_delete_boot_disk=$AUTO_DELETE_BOOT_DISK --metadata_from_file=startup-script:$STARTUP_SCRIPT
+
+rc=$?
+if [[ $rc != 0 ]] ; then
+  echo "Not able to add instance"
+    exit $rc
+fi
+```
+
+* `startup-script.sh` script that provisions the node with dart. 
+
+```
+#!/usr/bin/env bash
+
+# Add an addtional source for the latest glibc
+sudo sed -i '1i deb http://ftp.us.debian.org/debian/ jessie main' /etc/apt/sources.list
+
+# Update sources
+sudo apt-get update
+
+# Download latest glibc
+sudo DEBIAN_FRONTEND=noninteractive apt-get -t jessie install -y libc6 libc6-dev libc6-dbg git screen unzip vim
+
+# Download the latest dart sdk
+wget http://storage.googleapis.com/dart-archive/channels/dev/release/latest/sdk/dartsdk-linux-x64-release.zip -O dartsdk-linux-x64-release.zip 
+
+# Unpack the dart sdk
+unzip -d / dartsdk-linux-x64-release.zip
+
+# Make the sdk readable 
+chmod -R go+rx /dart-sdk
+
+# Add dart bin to global path
+echo "export PATH=\$PATH:/dart-sdk/bin" >> /etc/profile
+```

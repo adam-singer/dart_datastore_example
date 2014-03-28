@@ -1,15 +1,11 @@
 name: dart_datastore_example
-description: A sample command-line application
-
+version: 0.0.1
+authors:
+- Adam Singer <financeCoding@gmail.com>
+description: A sample command-line application for dart and google datastore
+homepage: https://github.com/financeCoding/dart_datastore_example
+environment:
+  sdk: '>=1.2.0 <2.0.0'
 dependencies:
-  google_oauth2_client: '>=0.3.5'
-  google_datastore_v1beta2_api: ">=0.4.0"
-#  google_datastore_v1beta2_api:
-#    git:
-#      url: https://github.com/dart-google-apis/dart_datastore_v1beta2_api_client.git
-
-dependency_overrides:
-  google_oauth2_client:
-    git:
-      url: https://github.com/financeCoding/dart-google-oauth2-library.git
-      ref: add_other_platforms_client
+  google_oauth2_client: '>=0.3.6 <0.3.7'
+  google_datastore_v1beta2_api: ">=0.4.0 <0.5.0"

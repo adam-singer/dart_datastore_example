@@ -4,13 +4,12 @@ description: A sample command-line application
 dependencies:
   google_oauth2_client: '>=0.3.5'
   google_datastore_v1beta2_api: ">=0.4.0"
-
 #  google_datastore_v1beta2_api:
 #    git:
 #      url: https://github.com/dart-google-apis/dart_datastore_v1beta2_api_client.git
 
-#dependency_overrides:
-#  google_oauth2_client:
-#    git:
-#      url: https://github.com/financeCoding/dart-google-oauth2-library.git
-#      ref: compute_oauth2_console_review
+dependency_overrides:
+  google_oauth2_client:
+    git:
+      url: https://github.com/financeCoding/dart-google-oauth2-library.git
+      ref: add_other_platforms_client
